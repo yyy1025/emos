@@ -5,9 +5,10 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 //封装web返回对象
-//对后端处理后的数据进行封装，以一个统一格式返回给客户端
+//对后端处理后的数据进行封装，以一个统一格式返回给客户端;返回的内容是业务状态码，业务消息，业务数据；
 //封装后的主要字符，{状态码，消息}{code，msg}
 //返回对象类型HashMap<String,Object>
+//使用了HttpComponents库，定义了很多的状态码常量，就不需要我们自定义状态码常量了
 public class R extends HashMap<String,Object> {
     public R(){
         put("code", HttpStatus.SC_OK);
