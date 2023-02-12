@@ -18,7 +18,7 @@ spring:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
-      password:
+      password: abc123456
       initial-size: 8
       max-active: 16
       min-idle: 8
