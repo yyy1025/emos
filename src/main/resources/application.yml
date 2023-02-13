@@ -64,3 +64,6 @@ emos:
     expire: 5
     #    ??????
     cache-expire: 10
+wx:
+  app-id: wx5c5b558c385e2461
+  app-secret: def5cdf5a5df6979bac1eae9b149174e
