@@ -23,13 +23,13 @@ public class ShiroConfig {
 
     }
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager,OAuth2Realm oAuth2Realm){
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager,OAuth2Filter oAuth2Filter){
         ShiroFilterFactoryBean shiroFilter=new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
         //向FactoryBean其中封装FilterBean对象
         //OAuth过滤
         Map<String, Filter>filters=new HashedMap();
-        filters.put("OAuth2",oAuth2Realm);//OAuth2Realm设置为“anon"不需要被拦截
+        filters.put("OAuth2",oAuth2Filter);//OAuth2Realm设置为“anon"不需要被拦截
         shiroFilter.setFilters(filters);
         //
         Map<String,String>filterMap=new HashedMap();
@@ -48,10 +48,6 @@ public class ShiroConfig {
         filterMap.put("/meeting/recieveNotify", "anon");
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
-
-        return shiroFilter;
-
-
 
         return shiroFilter;
 

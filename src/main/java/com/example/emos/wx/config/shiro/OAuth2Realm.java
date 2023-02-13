@@ -8,7 +8,9 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OAuth2Realm extends AuthorizingRealm {
     private JWTUtil jwtUtil;//是需要用到验证令牌字符串的方法吗
     @Override
