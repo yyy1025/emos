@@ -4,13 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpStatus;
 import cn.hutool.http.server.HttpServerResponse;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import io.swagger.annotations.Scope;
+//import io.swagger.annotations.Scope;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-//@Scope("prototype")
+@Scope("prototype")
+//有了这个注解意味着每次请求的时候都创建bean实例，意味着将创建同一个bean的多个实例
 public class OAuth2Filter extends AuthenticatingFilter {
     private ThreadLocalToken threadLocalToken;
     @Value("${emos.jwt.expire}")
@@ -130,6 +132,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
     }
     //认证失败进行这个处理，授权失败在上面onAccessDenied中已经处理
+    //如果没有登录，也就是未认证的话，在这里返回异常信息
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest servletRequest, ServletResponse servletResponse) {
         HttpServletRequest request= (HttpServletRequest) servletRequest;

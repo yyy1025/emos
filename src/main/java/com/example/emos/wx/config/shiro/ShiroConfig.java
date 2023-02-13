@@ -6,6 +6,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,14 +17,15 @@ import java.util.Map;
 public class ShiroConfig {
     @Bean("securityManager")
     public SecurityManager securityManager(OAuth2Realm oAuth2Realm){
-        DefaultSecurityManager defaultSecurityManager =new DefaultSecurityManager();
-        defaultSecurityManager.setRealm(oAuth2Realm);
-        defaultSecurityManager.setRememberMeManager(null);
-        return defaultSecurityManager;
+        DefaultWebSecurityManager defaultWebSecurityManager=new DefaultWebSecurityManager();
+//        DefaultSecurityManager defaultSecurityManager =new DefaultSecurityManager();
+        defaultWebSecurityManager.setRealm(oAuth2Realm);
+        defaultWebSecurityManager.setRememberMeManager(null);
+        return defaultWebSecurityManager;
 
     }
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager,OAuth2Filter oAuth2Filter){
+    @Bean("shiroFilterFactoryBean")
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager,OAuth2Filter oAuth2Filter){
         ShiroFilterFactoryBean shiroFilter=new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
         //向FactoryBean其中封装FilterBean对象
@@ -46,7 +48,7 @@ public class ShiroConfig {
         filterMap.put("/user/login", "anon");
         filterMap.put("/test/**", "anon");
         filterMap.put("/meeting/recieveNotify", "anon");
-        filterMap.put("/**", "oauth2");
+//        filterMap.put("/**", "oAuth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;

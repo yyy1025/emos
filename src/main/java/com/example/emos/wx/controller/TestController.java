@@ -19,6 +19,9 @@ public class TestController {
 //    }
     @PostMapping("/hello")
     public R sayhello(@Valid@RequestBody TestSayHelloForm testSayHelloForm){
+//        if(testSayHelloForm.getName()==null)return new R().ok().put("msg","hello yyy-syc");
         return new R().ok().put("msg","hello yyy-syc"+testSayHelloForm.getName());
+
+
     }
 }
