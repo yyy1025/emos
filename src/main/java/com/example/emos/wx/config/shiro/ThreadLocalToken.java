@@ -9,8 +9,9 @@ public class ThreadLocalToken {
     public void setToken(String token){
         local.set(token);
     }
-    public void getToken(String token){
-        local.get();
+    public String getToken(){
+        return local.get();
+//        return null;
     }
     public void clearToken(){
         local.remove();
