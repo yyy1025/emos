@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.emos.wx.db.dao.TbUserDao">
+<!--    查询-->
+<!--    查询是否有超级管路员-->
+    <select id="havaRooterUser" resultType="boolean">
+        select if(count(*),true,false) from tb_user where root==1;
+    </select>
+<!--    查询用户主键值，根据openid查用户id-->
+    <select id="searchIdByOpenid" resultType="Integer" parameterType="String">
+        select id from tb_user where open_id==#{openId} and status==1;
+--         status为1是有效的员工状态
+    </select>
+<!--    插入员工数据-->
+    <insert id="insert" parameterType="HashMap">
+        insert into tb_user
+        set
+        <if test="openId!=null">
+            open_id=#{openId};
+        </if>
+<!--        <if test="required"设置条件-->
+        <if test="nickName!=null">
+            nickname=#{nickName};
+        </if>
+        <if test="photo!=null">
+            nickname=#{photo};
+        </if>
+        <if test="name!=null">
+            nickname=#{name};
+        </if>
+        <if test="sex!=null">
+            sex=#{sex};
+        </if>
+        <if test="tel!=null">
+            tel=#{tel};
+        </if>
+        <if test="email!=null">
+            email=#{email};
+        </if>
+--         入职日期有没有必要写呢
+        <if test="hiredate!=null">
+            hiredate=#{hiredate};
+        </if>
+--         部门名字不为空的时候，插入的是对应的部门编号
+        <if test="deptName!=null">
+            dept_id=select id from tb_dept where dept_name==#{deptName};
+
+        </if>
+        role=#{role};
+        root=#{root};
+        status=#{status};
+        create_time=#{createtime};
+    </insert>
+</mapper>
