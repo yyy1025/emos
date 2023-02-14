@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
     //根据换取的openid，注册新用户
     //需要传入的参数是激活码、临时授权信息、昵称、头像
 //    返回新创建用户的id
-    private Integer userRegister(String registerCode,String code,String nickName,String photo){
+    public Integer userRegister(String registerCode,String code,String nickName,String photo){
         //判断是否是超级管理员
         //但是激活码为000000的一定是想创建超级管路员吗
         if(registerCode.equals("000000")){
@@ -79,6 +80,8 @@ public class UserServiceImpl implements UserService {
             return 1;
         }
     }
-
+    public Set<String> searchUserPermissions(int userId){
+        return tbUserDao.searchUserPermissions(userId);
+    }
 
 }

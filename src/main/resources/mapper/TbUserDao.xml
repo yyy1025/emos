@@ -11,6 +11,18 @@
         select id from tb_user where open_id==#{openId} and status==1;
 --         status为1是有效的员工状态
     </select>
+<!--    传入用户id查询该用户的权限列表-->
+    <select id="searchUserPermissions" parameterType="int" resultType="String">
+        -- 表连接
+        select distinct p.permission_name
+        from tb_user u
+                 join tb_role r
+        -- 两表关联条件,获取用户表中用户对应的角色的id，
+                      on JSON_CONTAINS(u.role, CAST(r.id as CHAR))
+                 join tb_permission p
+                      on JSON_CONTAINS(r.permissions, CAST(p.id as char))
+        where u.id=#{userId} and u.status=1;
+    </select>
 <!--    插入员工数据-->
     <insert id="insert" parameterType="HashMap">
         insert into tb_user
