@@ -1,7 +1,7 @@
 package com.example.emos.wx.controller;
 
 import com.example.emos.wx.common.utils.R;
-import com.example.emos.wx.form.TestSayHelloForm;
+import com.example.emos.wx.controller.form.TestSayHelloForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
