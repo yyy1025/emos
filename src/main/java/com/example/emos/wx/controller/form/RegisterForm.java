@@ -10,6 +10,10 @@ import javax.validation.constraints.Pattern;
 @Data
 @ApiModel
 public class RegisterForm {
+    public String getRegisterCode() {
+        return registerCode;
+    }
+
     //激活码不为空，校验规则为六位数字
     @NotBlank(message = "用户邀请码不能为空")
     @Pattern(regexp = "^[0-9]{6}$",message = "邀请码必须为6位数字")
@@ -23,4 +27,34 @@ public class RegisterForm {
     //
     @NotBlank(message = "用户头像不能为空")
     private String photo;
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setRegisterCode(String registerCode) {
+        this.registerCode = registerCode;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
 }
